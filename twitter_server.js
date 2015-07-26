@@ -27,16 +27,17 @@ var io = require('socket.io').listen(server);
 app.use(express.static(__dirname + '/public'));
 
 var count = 0;
-twit.stream('statuses/filter', { track: ['naruto'] }, function(stream) {
+twit.stream('statuses/filter', { track: ['Money'] }, function(stream) {
   stream.on('data', function (tweet) {
   	console.log("Passed a tweet to Socket IO");
-    count += 1;
     console.log(count);
   	io.sockets.emit("tweet", tweet);
-    // if (count >= 25) {
-    //   console.log("Stop twit stream since count >= 25");
-    //   stream.destroy();
-    // }
+    var limit = 25;
+    if (count > limit) {
+      console.log("Stop twit stream since count > " + limit);
+      stream.destroy();
+    }
+    count += 1;
   }); 
   stream.on('end', function() {
   	console.log("Disconnected");

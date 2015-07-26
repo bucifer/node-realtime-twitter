@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Real-time naruto tweets</title>
+	<title>Real-time Money Tweets</title>
 	<script src="/socket.io/socket.io.js"></script>
 	<link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
 <body>
-<h1>Real-Time #Naruto Tweets (Twitter Streaming API, Node.js, Express and Socket.io)</h1>
+<h1>Real-Time #Money Tweets (Twitter Streaming API, Node.js, Express and Socket.io)</h1>
 
 <p> <span id="count">Wait for it .... </span> </p>
 
@@ -18,18 +18,22 @@
 <p id="goodbye"></p>
 
 <script type="text/javascript">
-			window.counter = 0;
-			var socket = io.connect();	
-			var ul = document.getElementById("tweets");
-			socket.on('tweet', function (tweet) {
-				window.counter += 1;
-				var span = document.getElementById("count");
-				span.innerHTML = "At this moment in the world, " + window.counter.toString() + " people are tweeting about #Naruto" ;
+	window.counter = 0;
+	var socket = io.connect();	
+	var ul = document.getElementById("tweets");
+	socket.on('tweet', function (tweet) {
+		window.counter += 1;
+		var span = document.getElementById("count");
+		span.innerHTML = "At this moment in the world, " + window.counter.toString() + " people are tweeting about #Money" ;
 
-				var li = document.createElement("li");
-				li.innerHTML = "<strong>" + tweet.user.screen_name + ": </strong> " + tweet.text;
-				ul.insertBefore(li, ul.getElementsByTagName("li")[0]);
-			});
+		var li = document.createElement("li");
+		li.innerHTML = "<strong>" + tweet.user.screen_name + ": </strong> " + tweet.text;
+		ul.insertBefore(li, ul.getElementsByTagName("li")[0]);
+	});
+	socket.on('ending', function() {
+		var span = document.getElementById("count");
+		span.innerHTML = "Stopping at " + window.counter.toString() + " tweets about #Money to avoid overage -_-;" ;
+	})
 </script>
 
 </body>
