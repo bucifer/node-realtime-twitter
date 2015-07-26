@@ -6,10 +6,10 @@
   },
   "version": "0.0.0-12",
   "engines": {
-    "node": "0.12.7"
+    "node": "0.12.x"
   },
   "dependencies": {
-    "socket.io": "2.13.0",
+    "socket.io": "2.13.x",
     "express": "4.7.x",
     "ntwitter": "0.5.x"
   }
